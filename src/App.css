@@ -5,9 +5,10 @@
 
 .card-container {
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
+	grid-template-columns: repeat(5, 1fr);
 	gap: 10px;
 	margin-top: 20px;
+	justify-items: center;
 }
 
 .card {
@@ -49,14 +50,48 @@
 
 .card-back {
 	background-color: #fff;
+	transform: rotateY(180deg);
 }
 
 .card img {
-	max-width: 100%;
-	max-height: 100%;
+	height: 100%;
 	border-radius: 6px;
+	object-fit: cover;
+	overflow: hidden;
 }
 
-.matched .card-inner {
-	visibility: hidden;
+.score-card {
+	display: flex;
+	justify-content: space-evenly;
+	margin-bottom: 20px;
+}
+
+.score-item {
+	display: flex;
+	align-items: center;
+	font-size: 18px;
+}
+
+.success {
+	color: green;
+}
+
+.error {
+	color: red;
+}
+
+.username-input {
+	margin: 20px 0;
+}
+
+.username-input input {
+	width: 100%;
+	padding: 5px;
+	font-size: 16px;
+}
+
+.congratulations {
+	font-size: 24px;
+	text-align: center;
+	margin-top: 20px;
 }
