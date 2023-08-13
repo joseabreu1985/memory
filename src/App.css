@@ -1,19 +1,13 @@
-.App {
-	text-align: center;
-	margin-top: 50px;
-}
-
 .card-container {
 	display: grid;
-	grid-template-columns: repeat(5, 1fr);
-	gap: 10px;
-	margin-top: 20px;
+	grid-template-columns: repeat(8, 1fr);
+	gap: 2rem;
 	justify-items: center;
 }
 
-.card {
-	width: 100px;
-	height: 150px;
+.memory-card {
+	width: 100%;
+	height: 200px;
 	perspective: 1000px;
 	cursor: pointer;
 }
@@ -25,7 +19,7 @@
 	transition: transform 0.5s;
 }
 
-.card.flipped .card-inner {
+.memory-card.flipped .card-inner {
 	transform: rotateY(180deg);
 }
 
@@ -38,7 +32,7 @@
 	justify-content: center;
 	align-items: center;
 	backface-visibility: hidden;
-	border: 1px solid #ccc;
+	border: 5px solid purple;
 	border-radius: 8px;
 	font-size: 24px;
 	font-weight: bold;
@@ -53,45 +47,24 @@
 	transform: rotateY(180deg);
 }
 
-.card img {
+.memory-card img {
 	height: 100%;
-	border-radius: 6px;
+	width: 100%;
 	object-fit: cover;
 	overflow: hidden;
 }
 
-.score-card {
-	display: flex;
-	justify-content: space-evenly;
-	margin-bottom: 20px;
-}
-
-.score-item {
-	display: flex;
-	align-items: center;
-	font-size: 18px;
-}
-
-.success {
-	color: green;
-}
-
-.error {
-	color: red;
-}
-
-.username-input {
-	margin: 20px 0;
-}
-
-.username-input input {
-	width: 100%;
-	padding: 5px;
-	font-size: 16px;
-}
-
-.congratulations {
-	font-size: 24px;
-	text-align: center;
-	margin-top: 20px;
+@media (max-width: 768px) {
+	.card-container {
+		grid-template-columns: repeat(5, 1fr);
+		gap: 1rem;
+	}
+	.memory-card {
+		width: 100%;
+		height: 80px;
+	}
+	.card-front,
+	.card-back {
+		border-width: 2px;
+	}
 }
