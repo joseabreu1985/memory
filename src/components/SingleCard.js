@@ -1,11 +1,10 @@
 import Image from 'react-bootstrap/Image';
 import frontCardImg from '../images/question.png';
 
-const SingleCard = ({ card, index, handleClick }) => {
+const SingleCard = ({ card, handleClick }) => {
 	//console.log('card', card);
 	return (
 		<div
-			key={index}
 			id={card.image.uuid}
 			className={`memory-card ${card.isFlipped ? 'flipped' : ''} ${
 				card.isMatched ? 'matched' : ''
