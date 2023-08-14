@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import frontCardImg from './images/question.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Alert from 'react-bootstrap/Alert';
-import Image from 'react-bootstrap/Image';
 import { fetchData } from './services/fetchData';
+import ScoreBoards from './components/ScoreBoards';
+import SingleCard from './components/SingleCard';
 
 function shuffleCards(cards) {
 	const shuffledCards = cards.slice();
@@ -106,6 +105,7 @@ function App() {
 	}, [flippedIndexes, cards, matchedPairs, scoreSuccess, scoreError]);
 
 	const handleCardClick = (index) => {
+		//console.log('clicked');
 		if (flippedIndexes.length < 2 && !cards[index].isFlipped && !cards[index].isMatched) {
 			setFlippedIndexes([...flippedIndexes, index]);
 			setCards((prevCards) =>
@@ -175,18 +175,7 @@ function App() {
 						<Row className='justify-content-md-center mt-2 mb-4'>
 							<Col className='score-card fs-3 text'>
 								{username && <p>Welcome, {username}!</p>}
-								<Row>
-									<Col lg='2'>
-										<Badge bg='success'>
-											Successes: <span>{scoreSuccess}</span>
-										</Badge>
-									</Col>
-									<Col lg='2'>
-										<Badge bg='danger'>
-											Errors: <span>{scoreError}</span>
-										</Badge>
-									</Col>
-								</Row>
+								<ScoreBoards successes={scoreSuccess} errors={scoreError} />
 							</Col>
 						</Row>
 						{showCongratulations && username ? (
@@ -208,28 +197,12 @@ function App() {
 									{cards.length &&
 										cards.map((card, index) => {
 											return (
-												<div
+												<SingleCard
+													card={card}
 													key={index}
-													id={card.image.uuid}
-													className={`memory-card ${card.isFlipped ? 'flipped' : ''} ${
-														card.isMatched ? 'matched' : ''
-													}`}
-													onClick={() => handleCardClick(index)}
-												>
-													<div className='card-inner'>
-														<div className='card-front'>
-															<Image src={frontCardImg} alt='card-front' thumbnail fluid />
-														</div>
-														<div className='card-back'>
-															<Image
-																src={card.image.url}
-																alt={`${card.image.title}`}
-																thumbnail
-																fluid
-															/>
-														</div>
-													</div>
-												</div>
+													index={index}
+													handleClick={() => handleCardClick(index)}
+												/>
 											);
 										})}
 								</div>
