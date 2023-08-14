@@ -11,9 +11,7 @@ import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Alert from 'react-bootstrap/Alert';
 import Image from 'react-bootstrap/Image';
-
-const API_URL =
-	'https://fed-team.modyo.cloud/api/content/spaces/animals/types/game/entries?per_page=20';
+import { fetchData } from './services/fetchData';
 
 function shuffleCards(cards) {
 	const shuffledCards = cards.slice();
@@ -34,26 +32,25 @@ function App() {
 	const [scoreSuccess, setScoreSuccess] = useState(0);
 	const [scoreError, setScoreError] = useState(0);
 
-	const fetchCardData = () => {
-		fetch(API_URL)
-			.then((response) => response.json())
-			.then((data) => {
-				const cardImages = data.entries.map((entry) => entry.fields.image);
-				//console.log('cardImages', cardImages);
-				const shuffledImages = shuffleCards(cardImages.concat(cardImages));
-				//console.log('shuffledImages', shuffledImages);
-				const initialCards = shuffledImages.map((imageId, index) => ({
-					image: imageId,
-					isFlipped: false,
-					isMatched: false,
-					index,
-				}));
-				//console.log('initialCards', initialCards);
-				setCards(initialCards);
-			})
-			.catch((error) => {
-				console.error('Error fetching images:', error);
-			});
+	const fetchCardData = async () => {
+		try {
+			const data = await fetchData();
+			const cardImages = data.map((entry) => entry.fields.image);
+			//console.log('rawImages', cardImages);
+			const shuffledImages = shuffleCards(cardImages.concat(cardImages));
+			//console.log('shuffledImages', shuffledImages);
+			const initialCards = shuffledImages.map((imageId, index) => ({
+				image: imageId,
+				isFlipped: false,
+				isMatched: false,
+				index,
+			}));
+			//console.log('initialCards', initialCards);
+			setCards(initialCards);
+		} catch (error) {
+			console.error('Error fetching:', error);
+			throw error;
+		}
 	};
 
 	useEffect(() => {
