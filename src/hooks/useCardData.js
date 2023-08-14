@@ -100,7 +100,7 @@ const useCardData = () => {
 	}, [flippedIndexes, cards, matchedPairs]);
 
 	const onReplay = () => {
-		console.log('replay');
+		//console.log('replay');
 		fetchCardData();
 		setScoreError(0);
 		setScoreSuccess(0);
