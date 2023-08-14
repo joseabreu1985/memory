@@ -51,7 +51,7 @@ const useCardData = () => {
 						i === index1 || i === index2 ? { ...card, isMatched: true } : card
 					)
 				);
-				setScoreSuccess(scoreSuccess + 1); // Increase successful matches score
+				setScoreSuccess(scoreSuccess + 1);
 			} else {
 				setTimeout(() => {
 					setCards((prevCards) =>
@@ -59,7 +59,7 @@ const useCardData = () => {
 							i === index1 || i === index2 ? { ...card, isFlipped: false } : card
 						)
 					);
-					setScoreError(scoreError + 1); // Increase errors score
+					setScoreError(scoreError + 1);
 				}, 1000);
 			}
 			setFlippedIndexes([]);
@@ -100,10 +100,11 @@ const useCardData = () => {
 	}, [flippedIndexes, cards, matchedPairs]);
 
 	const onReplay = () => {
-		//console.log('replay');
+		console.log('replay');
 		fetchCardData();
 		setScoreError(0);
 		setScoreSuccess(0);
+		setMatchedPairs([]);
 		setShowCongratulations(false);
 	};
 

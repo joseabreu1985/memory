@@ -26,7 +26,7 @@ const MemoryGame = ({ username }) => {
 				</Col>
 			</Row>
 			{showCongratulations && username ? (
-				<SuccessAlert username={username} onReplay={onReplay} />
+				<SuccessAlert username={username} onReplay={() => onReplay()} />
 			) : null}
 			<Row>
 				<Col>
